@@ -1,1 +1,2 @@
+## cross-stitching
 I've recently started cross-stitching for fun (to decorate gifts, jars, bookmarks etc.) but I've been struggling to find quality cross-stitching patterns to use. I also wanted the chance to customise images, or maybe even recreate photographs that I had taken. Here, I explore pixelating images in R (and maybe Python, who knows). I also address more specific limitations imposed by cross-stitching, such as limited threads and colours available.
