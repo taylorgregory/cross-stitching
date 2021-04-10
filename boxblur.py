@@ -5,7 +5,8 @@
 # --- PACKAGES --- #
 
 import subprocess, platform                  # necessary for clearing console
-#import fcntl, termios, struct
+#import struct
+import os
 import numpy as np
 #simport pandas as pd
 import cv2
@@ -14,41 +15,120 @@ from matplotlib import pyplot as plt
 from math import *
 from PIL import Image                        # crops image
 #from sklearn.cluster import KMeans           # kmeans for colour separation
+from dfply import *
 
 
 # --- FUNCTIONS --- #
+
+
 
 def clear_console():
     if (platform.system() == "Windows"):
         subprocess.Popen("cls", shell = True).communicate() 
     else: # Linux and Mac
         print("\033c", end = "")
+
         
-# no clue what this does lol    `
-def terminal_size():
-    th, tw, hp, wp = struct.unpack('HHHH', fcntl.ioctl(0, termios.TIOCGWINSZ, struct.pack('HHHH', 0, 0, 0, 0)))
-    return tw, th
-        
-def welcome_screen():
-    # check size of console
-    clear_console()
-    #print(terminal_size())
-    print("############################################################")
-    print("##                                                        ##")
-    print("##                                                        ##")    
-    print("##                                                        ##")
-    print("##                                                        ##")
-    print("##                                                        ##")
-    print("##                                                        ##")
-    print("##                                                        ##")
-    print("##                                                        ##")
-    print("##                                                        ##")
-    print("##                                                        ##")
-    print("##                                                        ##")
-    print("##                                                        ##")
-    print("##                                                        ##")
-    print("##                                                        ##")
-    print("############################################################")                                            
+def welcome_screen(main_text):
+    #clear_console()
+    #top_bottom_border = ''
+    #middle_row = '##'
+    #for i in range(os.get_terminal_size()[0] - 1): #terminal width
+    #    top_bottom_border = top_bottom_border + '#'
+    #    middle_row = middle_row + ' '
+
+    #middle_row = middle_row[:len(middle_row) - 4] + '##'
+
+    #print(top_bottom_border)
+    #for i in range(os.get_terminal_size()[1] - 2): #terminal height
+    #    print(middle_row)
+    #print(top_bottom_border)
+
+    letter_array = ["### " for i in range(8)]
+    #letter_array = add_main_text(main_text)
+
+
+
+    # i wanted a pipe operator, similar to r magrittr's >%>
+    # pipe operator is not possible to the language without changing the python interpreter?
+    # however, an existing operator can be repurposed
+    # functions can be rewritten using a decorator (follow along with https://hackernoon.com/adding-a-pipe-operator-to-python-19a3aa295642)
+
+    letter_array = draw_c(letter_array)
+    letter_array = draw_r(letter_array)
+    letter_array = draw_o(letter_array)
+    letter_array = draw_s(letter_array)
+    letter_array = draw_s(letter_array)
+    letter_array = draw_hyphen(letter_array)
+    letter_array = draw_s(letter_array)
+    letter_array = draw_c(letter_array)
+
+
+    for i in range(8):
+        print(letter_array[i])
+
+    print('press any key to continue')
+
+
+#def add_main_text(text)
+
+
+def draw_c(text_array):
+    text_array[0] += '         '
+    text_array[1] += '         '
+    text_array[2] += ' cccccc  '
+    text_array[3] += 'cccccccc '
+    text_array[4] += 'ccc      '
+    text_array[5] += 'ccc      '
+    text_array[6] += 'cccccccc '
+    text_array[7] += ' cccccc  '
+    return text_array
+
+def draw_o(text_array):
+    text_array[0] += '         '
+    text_array[1] += '         '
+    text_array[2] += ' oooooo  '
+    text_array[3] += 'oooooooo '
+    text_array[4] += 'ooo  ooo '
+    text_array[5] += 'ooo  ooo '
+    text_array[6] += 'oooooooo '
+    text_array[7] += ' oooooo  '
+    return text_array
+
+def draw_r(text_array):
+    text_array[0] += '         '
+    text_array[1] += '         '
+    text_array[2] += 'rrr rrr  '
+    text_array[3] += 'rrrrrrrr '
+    text_array[4] += 'rrr  rrr '
+    text_array[5] += 'rrr      '
+    text_array[6] += 'rrr      '
+    text_array[7] += 'rrr      '
+    return text_array
+
+def draw_s(text_array):
+    text_array[0] += '         '
+    text_array[1] += '         '
+    text_array[2] += ' sssssss '
+    text_array[3] += 'sssss    '
+    text_array[4] += ' sss     '
+    text_array[5] += '    sss  '
+    text_array[6] += '   sssss '
+    text_array[7] += 'sssssss  '
+    return text_array
+
+def draw_hyphen(text_array):
+    text_array[0] += '       '
+    text_array[1] += '       '
+    text_array[2] += '       '
+    text_array[3] += '       '
+    text_array[4] += '****** '
+    text_array[5] += '****** '
+    text_array[6] += '       '
+    text_array[7] += '       '
+    return text_array
+
+
 
 def import_img():
 # input:
@@ -243,8 +323,9 @@ def print_img():
 def main():
 # main function
     welcome_screen()
-    rgb = import_img() # import image
-    redef = define_dim(rgb) # trim as needed
+
+    #rgb = import_img() # import image
+    #redef = define_dim(rgb) # trim as needed
     #average_col() # perform averaging function on each part of the array
     #k_means(redef)
     #print_img()
